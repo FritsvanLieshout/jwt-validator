@@ -1,4 +1,4 @@
-package com.fritsvanlieshout;
+package io.github.fritsvanlieshout;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

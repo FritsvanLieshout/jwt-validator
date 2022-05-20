@@ -1,4 +1,4 @@
-package com.fritsvanlieshout;
+package io.github.fritsvanlieshout;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

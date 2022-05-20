@@ -1,4 +1,4 @@
-package com.fritsvanlieshout;
+package io.github.fritsvanlieshout;
 
 /**
  * Factory for creating instances of {@link AuthorizationFilter}.

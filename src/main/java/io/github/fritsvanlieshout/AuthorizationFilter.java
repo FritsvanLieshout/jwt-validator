@@ -1,4 +1,4 @@
-package com.fritsvanlieshout;
+package io.github.fritsvanlieshout;
 
 public interface AuthorizationFilter {
 
