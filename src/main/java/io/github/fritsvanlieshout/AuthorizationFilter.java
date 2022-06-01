@@ -1,5 +1,7 @@
 package io.github.fritsvanlieshout;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 public interface AuthorizationFilter {
 
     /**
@@ -8,7 +10,7 @@ public interface AuthorizationFilter {
      *
      * @param secretKey secret key for hashing algorithm.
      * @param token Json Web Token to identify the user.
-     * @return array of roles.
+     * @return decoded JWT.
      */
-    String[] verifyToken(String secretKey, String token);
+    DecodedJWT verifyToken(String secretKey, String token);
 }

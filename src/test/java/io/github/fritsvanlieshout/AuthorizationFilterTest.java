@@ -18,8 +18,8 @@ public class AuthorizationFilterTest
      */
     @Test
     public void verifyTokenFailed() {
-        var roles = authorizationFilter.verifyToken(SECRET_KEY, "");
-        assertThat(roles.length).isEqualTo(0);
+        var decodedJWT = authorizationFilter.verifyToken(SECRET_KEY, "");
+        assertThat(decodedJWT).isNull();
     }
 
     /**
@@ -27,8 +27,31 @@ public class AuthorizationFilterTest
      */
     @Test
     public void verifyTokenSuccess() {
-        var roles = authorizationFilter.verifyToken(SECRET_KEY, TOKEN);
+        var decodedJWT = authorizationFilter.verifyToken(SECRET_KEY, TOKEN);
+        var roles = decodedJWT.getClaim("roles").asArray(String.class);
         assertThat(roles.length).isGreaterThan(0);
         assertThat(roles.length).isEqualTo(2);
+    }
+
+    /**
+     * Get the subject (username) of a token.
+     */
+    @Test
+    public void getSubjectFromVerifiedToken() {
+        var decodedJWT = authorizationFilter.verifyToken(SECRET_KEY, TOKEN);
+        var subject = decodedJWT.getSubject();
+        assertThat(subject).isNotNull();
+        assertThat(subject).isEqualTo("fritsvanlieshout_jwt.verifier");
+    }
+
+    /**
+     * Get role(s) of a token.
+     */
+    @Test
+    public void getRolesFromVerifiedToken() {
+        var decodedJWT = authorizationFilter.verifyToken(SECRET_KEY, TOKEN);
+        var roles = decodedJWT.getClaim("roles").asArray(String.class);
+        assertThat(roles).contains("ADMIN");
+        assertThat(roles).contains("SUPER_ADMIN");
     }
 }

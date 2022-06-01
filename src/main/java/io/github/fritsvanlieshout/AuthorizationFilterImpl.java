@@ -12,14 +12,13 @@ public class AuthorizationFilterImpl implements AuthorizationFilter {
     }
 
     @Override
-    public String[] verifyToken(String secretKey, String token) {
+    public DecodedJWT verifyToken(String secretKey, String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             JWTVerifier verifier = JWT.require(algorithm).build();
-            DecodedJWT decodedJWT = verifier.verify(token);
-            return decodedJWT.getClaim("roles").asArray(String.class);
+            return verifier.verify(token);
         } catch (JWTVerificationException exception) {
-            return new String[0];
+            return null;
         }
     }
 }
